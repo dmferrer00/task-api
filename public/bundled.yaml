@@ -4,6 +4,9 @@ info:
   version: 3.1.0
 servers:
   - url: http://localhost:3000
+    description: Local development server
+  - url: https://task-api-1-b3l2.onrender.com
+    description: Production server on render
 tags:
   - name: Tasks
     description: Task-related endpoints
@@ -55,11 +58,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/Task'
         '400':
-          description: Invalid Request
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ValidationError'
+          $ref: '#/components/responses/BadRequest'
 components:
   schemas:
     Task:
@@ -87,5 +86,10 @@ components:
           type: array
           items:
             type: string
-          example:
-            - Title is required
+  responses:
+    BadRequest:
+      description: Invalid input
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ValidationError'
